@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/gocolly/colly"
+	"github.com/tealeg/xlsx"
 )
 
 type Quote struct {
@@ -53,6 +55,29 @@ func main() {
 
 	c.Visit("https://quotes.toscrape.com/")
 
-	fmt.Println(Quotes)
+	// fmt.Println(Quotes)
+	createAndSaveFile("sheet1",Quotes)
 
+}
+
+func createAndSaveFile(sheetname string, datas []Quote) {
+	file := xlsx.NewFile()
+	sheet, err := file.AddSheet(sheetname)
+	if err != nil {
+		panic(err)
+	}
+
+	row := sheet.AddRow()
+	row.AddCell().SetValue("Quote")
+	row.AddCell().SetValue("Author")
+	for _, i := range datas {
+		row := sheet.AddRow()
+		row.AddCell().SetValue(i.Quote)
+		row.AddCell().SetValue(i.author)
+	}
+	err = file.Save("quotes" + ".xlsx")
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
 }
