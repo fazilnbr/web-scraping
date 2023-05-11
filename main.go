@@ -25,6 +25,7 @@ func main() {
 	})
 
 
+
 	c.OnHTML("span.text",func(h *colly.HTMLElement) {
 		fmt.Println("\n\nQuotes :- ",h.Text)
 	})
@@ -33,6 +34,6 @@ func main() {
 		fmt.Println("\n\nAuthor :- ",h.Text)
 	})
 
-	c.Visit("https://quotes.toscrape.com/random")
+	c.Visit("https://quotes.toscrape.com/")
 
 }
