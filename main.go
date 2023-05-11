@@ -6,7 +6,13 @@ import (
 	"github.com/gocolly/colly"
 )
 
+type Quote struct {
+	Quote  string
+	author string
+}
+
 func main() {
+
 	c := colly.NewCollector(
 		colly.AllowedDomains("quotes.toscrape.com"),
 	)
@@ -24,11 +30,17 @@ func main() {
 		fmt.Println("error : ", err.Error())
 	})
 
+	var Quotes []Quote
+
 	c.OnHTML(".quote", func(h *colly.HTMLElement) {
 		div := h.DOM
 		quote := div.Find(".text").Text()
 		auther := div.Find(".author").Text()
-		fmt.Printf("\n %s\n\tBy %s\n", quote, auther)
+		q := Quote{
+			Quote:  quote,
+			author: auther,
+		}
+		Quotes = append(Quotes, q)
 	})
 
 	// c.OnHTML("span.text",func(h *colly.HTMLElement) {
@@ -40,5 +52,7 @@ func main() {
 	// })
 
 	c.Visit("https://quotes.toscrape.com/")
+
+	fmt.Println(Quotes)
 
 }
