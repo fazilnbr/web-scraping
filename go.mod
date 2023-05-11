@@ -2,7 +2,10 @@ module github.com/fazilnbr/web-scraping
 
 go 1.19
 
-require github.com/gocolly/colly v1.2.0
+require (
+	github.com/gocolly/colly v1.2.0
+	github.com/tealeg/xlsx v1.0.5
+)
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1 // indirect
