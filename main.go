@@ -24,15 +24,20 @@ func main() {
 		fmt.Println("error : ", err.Error())
 	})
 
-
-
-	c.OnHTML("span.text",func(h *colly.HTMLElement) {
-		fmt.Println("\n\nQuotes :- ",h.Text)
+	c.OnHTML(".quote", func(h *colly.HTMLElement) {
+		div := h.DOM
+		quote := div.Find(".text").Text()
+		auther := div.Find(".author").Text()
+		fmt.Printf("\n %s\n\tBy %s\n", quote, auther)
 	})
 
-	c.OnHTML("small.author",func(h *colly.HTMLElement) {
-		fmt.Println("\n\nAuthor :- ",h.Text)
-	})
+	// c.OnHTML("span.text",func(h *colly.HTMLElement) {
+	// 	fmt.Println("\n\nQuotes :- ",h.Text)
+	// })
+
+	// c.OnHTML("small.author",func(h *colly.HTMLElement) {
+	// 	fmt.Println("\n\nAuthor :- ",h.Text)
+	// })
 
 	c.Visit("https://quotes.toscrape.com/")
 
