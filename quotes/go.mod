@@ -1,4 +1,4 @@
-module github.com/fazilnbr/web-scraping
+module github.com/fazilnbr/web-scraping/quotes
 
 go 1.19
 
